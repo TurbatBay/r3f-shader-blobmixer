@@ -119,19 +119,20 @@ void main() {
     //
     vec3 coords = normal;
     coords.y += uTime;
-    vec3 noisePattern = vec3(noise(coords));
-    float pattern = wave(noisePattern);
-
+   
 
     //varrying
 
     vPosition = position;
     vNormal = normal;
     vUv = uv;
-    vDisplacement = pattern;
+vec3 noisePattern = vec3(noise(vec3(vUv * 2.0, uTime * 0.01)));
+
+    float pattern = wave(noisePattern);
+        vDisplacement = pattern;
 
     //MVP
-    float displacement = vDisplacement / 3.0;
+    float displacement = vDisplacement  * 0.3;
     vec3 newPosition = position + normal * displacement;
     vec4 modelViewPosition = modelViewMatrix * vec4( newPosition, 1.0);
     vec4 projectedPosition = projectionMatrix * modelViewPosition;

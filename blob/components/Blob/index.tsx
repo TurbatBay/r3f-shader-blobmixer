@@ -1,5 +1,5 @@
 'use client'
-import { shaderMaterial } from '@react-three/drei'
+import { Icosahedron, shaderMaterial, Sphere } from '@react-three/drei'
 import { extend } from '@react-three/fiber'
 import React, { useMemo, useRef } from 'react'
 import vertexShader from './vertexShader'
@@ -17,7 +17,7 @@ const Blob = () => {
 
   useFrame((state) => {
     const { clock } = state
-    mesh.current.material.uniforms.uTime.value = 0.2 * clock.getElapsedTime()
+    mesh.current.material.uniforms.uTime.value = clock.getElapsedTime()
     // if (mesh.current) {
     //   mesh.current.material.uniforms.u_time.value = 0.4 * clock.getElapsedTime()
 
@@ -28,16 +28,30 @@ const Blob = () => {
     //   )
     // }
   })
+
+  // const onBeforeCompile = (shader) => {
+  //   mesh.current.material.userData.shader = shader
+
+  //   // uniforms
+  //   shader.uniforms.uTime = { value: 0 }
+
+  //   const parsVertexString = /*glsl*/ `#include <displacementmap_pars_vertex> shader.vertexShader = shader.vertexShader.replace(parsVertexString, parsVertexString + vertexShaderPars) console.log(shader.vertexShader)`
+  // }
+  console.log(mesh)
   return (
-    <mesh ref={mesh} scale={1.5} position={[0, 0, 0]}>
-      <ambientLight />
-      <sphereGeometry args={[2, 1000, 1000]} />
-      <shaderMaterial
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-      />
-    </mesh>
+    <React.Fragment>
+      <ambientLight></ambientLight>
+      <Sphere ref={mesh} args={[1, 500, 500]}>
+        <shaderMaterial
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          uniforms={uniforms}
+
+          // onBeforeCompile={onBeforeCompile}
+        />
+        {/* <meshStandardMaterial color='red'></meshStandardMaterial> */}
+      </Sphere>
+    </React.Fragment>
   )
 }
 
