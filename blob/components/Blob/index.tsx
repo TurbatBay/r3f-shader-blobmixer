@@ -1,11 +1,17 @@
 'use client'
-import { Icosahedron, shaderMaterial, Sphere } from '@react-three/drei'
+import {
+  Environment,
+  Icosahedron,
+  shaderMaterial,
+  Sphere,
+} from '@react-three/drei'
 import { extend } from '@react-three/fiber'
 import React, { useMemo, useRef } from 'react'
 import vertexShader from './vertexShader'
 import fragmentShader from './fragmentShader'
 import { useFrame } from '@react-three/fiber'
 import { MathUtils } from 'three'
+import * as THREE from 'three'
 const Blob = () => {
   const mesh: any = useRef()
   const uniforms = useMemo(() => {
@@ -28,6 +34,10 @@ const Blob = () => {
     //   )
     // }
   })
+  //  const geometry = new THREE.IcosahedronGeometry(1,100)
+  //  const material = new THREE.MeshStandardMaterial({
+  //   onBeforeCompile : (shader )
+  //  })
 
   // const onBeforeCompile = (shader) => {
   //   mesh.current.material.userData.shader = shader
@@ -37,7 +47,9 @@ const Blob = () => {
 
   //   const parsVertexString = /*glsl*/ `#include <displacementmap_pars_vertex> shader.vertexShader = shader.vertexShader.replace(parsVertexString, parsVertexString + vertexShaderPars) console.log(shader.vertexShader)`
   // }
-  console.log(mesh)
+  // console.log(mesh)
+  // console.log(vertexShader + 'VVEEERTEX')
+  // console.log(fragmentShader + 'FRAAAG')
   return (
     <React.Fragment>
       <ambientLight></ambientLight>
